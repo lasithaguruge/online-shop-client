@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Input, Menu } from 'semantic-ui-react'
+import { Icon, Menu, Segment } from 'semantic-ui-react'
 
 export default class TopMenu extends Component {
-  state = { activeItem: 'home' }
+  state = { activeItem: 'Products' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -10,33 +10,29 @@ export default class TopMenu extends Component {
     const { activeItem } = this.state
 
     return (
-      <Menu secondary>
+      <Segment color='teal'>
+        <Menu secondary color={'teal'}>
         <Menu.Item
-          name='home'
-          active={activeItem === 'home'}
+          name='Products'
+          active={activeItem === 'Products'}
           onClick={this.handleItemClick}
         />
         <Menu.Item
-          name='messages'
-          active={activeItem === 'messages'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name='friends'
-          active={activeItem === 'friends'}
+          name='Prices'
+          active={activeItem === 'Prices'}
           onClick={this.handleItemClick}
         />
         <Menu.Menu position='right'>
-          <Menu.Item>
-            <Input icon='search' placeholder='Search...' />
-          </Menu.Item>
           <Menu.Item
-            name='logout'
-            active={activeItem === 'logout'}
+            name='Cart'
+            active={activeItem === 'Cart'}
             onClick={this.handleItemClick}
-          />
+          >
+            <Icon name='cart' /> Cart
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
+      </Segment>
     )
   }
 }
