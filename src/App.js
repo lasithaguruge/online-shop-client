@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { Container, Segment } from 'semantic-ui-react';
 import Root from './Root';
 import store from './store';
+import TopMenu from './Components/TopMenu';
 import './App.css';
 
 class App extends Component {
@@ -10,9 +12,12 @@ class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <div style={{ marginTop: 20 }}>
-            <Root />
-          </div>
+          <Container style={{ marginTop: 15 }}>
+            <TopMenu />
+              <div style={{ marginTop: 30, padding: 15 }}>
+                <Root />
+              </div>
+          </Container>
         </BrowserRouter>
       </Provider>
     );

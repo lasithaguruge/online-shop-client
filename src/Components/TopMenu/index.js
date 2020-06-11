@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom';
 import { Icon, Menu, Segment } from 'semantic-ui-react'
 
-export default class TopMenu extends Component {
+class TopMenu extends Component {
   state = { activeItem: 'Products' }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+  handleItemClick = (e, { name }) => {
+    this.props.history.replace('/' + name.toLowerCase())
+    this.setState({ activeItem: name })
+  }
 
   render() {
     const { activeItem } = this.state
@@ -36,3 +40,5 @@ export default class TopMenu extends Component {
     )
   }
 }
+
+export default withRouter(TopMenu);
