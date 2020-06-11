@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { dummyData } from './dummyData';
+import { items as dummyItems } from './dummyData';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
@@ -36,6 +36,6 @@ const items = combineReducers({
 export default items;
 
 export const getItems = state => {
-  return dummyData;
+  return dummyItems;
   // state.ids.map(id => state.byId[id]);
 }
