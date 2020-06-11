@@ -12,7 +12,7 @@ class ItemList extends Component {
         <Header as='h3'>Products</Header>
         <Divider />
         <List verticalAlign='middle'>
-          {this.props.items.map(item => <ItemCard key={item.id} item={item}/>)}
+          {this.props.items.map(item => <ItemCard key={item.id} item={item} />)}
         </List>
       </div>
     )

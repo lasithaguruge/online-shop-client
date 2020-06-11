@@ -1,10 +1,15 @@
-import React from 'react'
-import { Button, Item, Input, Grid, Form, Radio } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Item, Input, Grid, Dropdown } from 'semantic-ui-react';
+
+const options = [
+  { key: 1, text: 'Unit', value: 'unit' },
+  { key: 2, text: 'Carton', value: 'carton' }
+]
 
 export const ItemCard = props => {
-  const { item } = props;
+  const { item, uom = 'unit', onHandleChange, onHandleClickItemCount, onHandleAddToCart } = props;
 
-  return <Grid columns={2} divided='vertically'>
+  return <Grid columns={4} divided='vertically'>
     <Grid.Row>
       <Grid.Column>
         <Item>
@@ -14,32 +19,22 @@ export const ItemCard = props => {
           </Item.Content>
         </Item>
       </Grid.Column>
-      <Grid.Column>
+      <Grid.Column style={{ marginTop: 5 }}>
         <Grid columns={4}>
-          <Grid.Row>
-            <Grid.Column width={3} textAlign='justified'>
-              <Form.Field>
-                <Radio
-                  label='Carton'
-                  name='radioGroup'
-                  value='CARTON'
-                />
-              </Form.Field>
-            </Grid.Column>
-            <Grid.Column width={3} >
-              <Form.Field>
-                <Radio
-                  label='Unit'
-                  name='radioGroup'
-                  value='UNIT'
-                />
-              </Form.Field>
-            </Grid.Column>
-            <Grid.Column width={1}><Button circular icon='plus' size='mini' /></Grid.Column>
-            <Grid.Column width={2} ><Input size='mini' style={{ width: 65 }} /></Grid.Column>
-            <Grid.Column width={1}><Button circular icon='minus' size='mini' /></Grid.Column>
-          </Grid.Row>
+          <Grid.Column width={2}><Button circular icon='plus' size='mini' onClick={(value) => onHandleClickItemCount('INCREASE', value)}/></Grid.Column>
+          <Grid.Column width={4}><Input size='mini' style={{ width: 64 }}/></Grid.Column>
+          <Grid.Column width={2}><Button circular icon='minus' size='mini' onClick={(value) => onHandleClickItemCount('DECREASE', value)}/></Grid.Column>
+          <Grid.Column style={{ margin: 5 }} width={7} >
+            <Dropdown options={options} value={uom} onChange={onHandleChange} />
+          </Grid.Column>
         </Grid>
+      </Grid.Column>
+      <Grid.Column></Grid.Column>
+      <Grid.Column 
+        width={1} 
+        style={{ marginTop: 5, marginRight: 10 }} 
+        floated='right'
+      ><Button size='mini' onClick={onHandleAddToCart}>Add</Button>
       </Grid.Column>
     </Grid.Row>
   </Grid>
