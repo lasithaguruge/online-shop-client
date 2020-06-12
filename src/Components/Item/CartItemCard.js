@@ -52,9 +52,9 @@ class ItemCard extends Component {
         </Grid.Column>
         <Grid.Column style={{ marginTop: 5 }}>
           <Grid columns={4}>
-            <Grid.Column width={2}><Button circular icon='plus' size='mini' onClick={(e) => this.onQuantityChange(1)} /></Grid.Column>
-            <Grid.Column width={4}><Input value={quantity} size='mini' style={{ width: 64 }} onChange={(e) => this.onQuantityChange(e.target.value)}/></Grid.Column>
-            <Grid.Column width={2}><Button circular icon='minus' size='mini' onClick={(e) => quantity > 0 && this.onQuantityChange(-1)} /></Grid.Column>
+            <Grid.Column width={2}><Button circular icon='plus' size='mini' color='teal' onClick={(e) => this.onQuantityChange(1)} /></Grid.Column>
+            <Grid.Column width={3}><Input value={quantity} size='mini' style={{ width: 64 }} onChange={(e) => this.onQuantityChange(e.target.value)}/></Grid.Column>
+            <Grid.Column width={2}><Button circular icon='minus' size='mini' color='teal' onClick={(e) => quantity > 0 && this.onQuantityChange(-1)} /></Grid.Column>
             <Grid.Column style={{ margin: 5 }} width={7} >
               <Dropdown options={options} value={uom} onChange={(e, option) => this.onUOMChange(option.value)} />
             </Grid.Column>

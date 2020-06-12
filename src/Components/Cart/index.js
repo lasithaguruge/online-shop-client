@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Icon, Modal, List } from 'semantic-ui-react';
 import { getCartItems } from '../../redux/reducers';
 import CartItemCard from '../Item/CartItemCard';
+import EmptyCart from '../EmptyMessages/EmptyCart';
 
 class Cart extends Component {
 
@@ -13,9 +14,9 @@ class Cart extends Component {
       <Modal trigger={cartItems && cartItems.length > 0 && button}>
         <Modal.Header>Cart</Modal.Header>
         <Modal.Content scrolling>
-        <List verticalAlign='middle'>
-          {cartItems.map(item => <CartItemCard key={item.id} orderItem={item} />)}
-        </List>
+          {cartItems.length > 0 ? <List verticalAlign='middle'>
+            {cartItems.map(item => <CartItemCard key={item.id} orderItem={item} />)}
+          </List> : <EmptyCart />}
         </Modal.Content>
         <Modal.Actions>
           <Button primary>
