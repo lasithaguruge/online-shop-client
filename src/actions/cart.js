@@ -2,7 +2,8 @@ export const addToCart = (orderItemId, item, quantity, uom) => dispatch => dispa
   type: 'ADD_TO_CART',
   item,
   quantity,
-  orderItemId
+  orderItemId,
+  uom
 });
 
 export const updateCart = (orderItemId, quantity, uom) => dispatch => dispatch({

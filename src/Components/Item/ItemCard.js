@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Item, Input, Grid, Dropdown } from 'semantic-ui-react';
 import { v4 as uuid4 } from 'uuid';
 import { connect } from 'react-redux';
-import { addToCart, updateCart } from '../../actions/cart';
+import { addToCart } from '../../actions/cart';
 import { getCart } from '../../redux/reducers';
 
 const options = [
@@ -16,38 +16,20 @@ class ItemCard extends Component {
     uom: 'unit'
   }
 
-  componentWillReceiveProps = nextProps => console.log("CART ", nextProps.cart)
-
   onQuantityChange = value => {
-    this.setState({ quantity: this.state.quantity + value }, this.handleAddToCart);
+    this.setState({ quantity: this.state.quantity + value });
   }
 
-  onUOMChange = value => {
-    this.setState({ uom: value }, this.handleAddToCart);
-  }
+  onUOMChange = value => this.setState({ uom: value });
 
 
   handleAddToCart = () => {
-    const { item, addToCart, updateCart } = this.props;
+    const { item, addToCart } = this.props;
     const { quantity, uom } = this.state;
+    const orderItemId = uuid4();
 
-    if (!this.orderItemId) {
-      this.orderItemId = uuid4();
-      addToCart(this.orderItemId, item, quantity, uom);
-    } else {
-      updateCart(this.orderItemId, quantity, uom);
-    }
-
-    this.handleResetItemState();
-  }
-
-  handleResetItemState = () => {
-    if (this.addToCartTimeout) clearTimeout(this.addToCartTimeout);
-
-    this.addToCartTimeout = setTimeout(() => {
-      this.orderItemId = null;
-      this.setState({ quantity: 0, uom: 'unit' });
-    }, 5000);
+    addToCart(orderItemId, item, quantity, uom);
+    this.setState({ quantity: 0, uom: 'unit' });
   }
 
   render() {
@@ -75,12 +57,12 @@ class ItemCard extends Component {
           </Grid>
         </Grid.Column>
         <Grid.Column></Grid.Column>
-        {/* <Grid.Column
+        <Grid.Column
           width={1}
           style={{ marginTop: 5, marginRight: 10 }}
           floated='right'
-        ><Button size='mini' onClick={() => onHandleAddToCart(item.id)}>Add</Button>
-        </Grid.Column> */}
+        ><Button size='mini' onClick={() => this.handleAddToCart()}>Add</Button>
+        </Grid.Column>
       </Grid.Row>
     </Grid>
   }
@@ -90,4 +72,4 @@ const mapStateToProps = state => {
   return { cart: getCart(state) };
 }
 
-export default connect(mapStateToProps, { addToCart, updateCart })(ItemCard);
+export default connect(mapStateToProps, { addToCart })(ItemCard);
