@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Item, Input, Grid, Dropdown } from 'semantic-ui-react';
-import { v4 as uuid4 } from 'uuid';
 import { connect } from 'react-redux';
-import { addToCart } from '../../actions/cart';
+import { updateCart } from '../../actions/cart';
 
 const options = [
   { key: 1, text: 'Unit', value: 'unit' },
@@ -15,27 +14,33 @@ class ItemCard extends Component {
     uom: 'unit'
   }
 
-  onQuantityChange = value => {
-    this.setState({ quantity: this.state.quantity + value });
+  componentDidMount = () => {
+    const { orderItem: { quantity, uom } } = this.props;
+
+    this.setState({ quantity, uom });
   }
 
-  onUOMChange = value => this.setState({ uom: value });
+  onQuantityChange = value => {
+    this.setState({ quantity: this.state.quantity + value }, () => this.handleUpdateCart('quantity'));
+  }
 
+  onUOMChange = value => {
+    this.setState({ uom: value }, () => this.handleUpdateCart('uom'));
+  }
 
-  handleAddToCart = () => {
-    const { item, addToCart } = this.props;
+  handleUpdateCart = field => {
+    const { orderItem, updateCart } = this.props;
     const { quantity, uom } = this.state;
-    const orderItemId = uuid4();
 
-    addToCart(orderItemId, item, quantity, uom);
-    this.setState({ quantity: 0, uom: 'unit' });
+    if (field === 'uom') updateCart(orderItem.id, field, uom);
+    else updateCart(orderItem.id, field, quantity);
   }
 
   render() {
-    const { item } = this.props;
+    const { orderItem: { item } } = this.props;
     const { quantity, uom } = this.state;
 
-    return <Grid columns={4} divided='vertically'>
+    return <Grid columns={2} divided='vertically'>
       <Grid.Row>
         <Grid.Column>
           <Item>
@@ -55,16 +60,9 @@ class ItemCard extends Component {
             </Grid.Column>
           </Grid>
         </Grid.Column>
-        <Grid.Column></Grid.Column>
-        <Grid.Column
-          width={1}
-          style={{ marginTop: 5, marginRight: 10 }}
-          floated='right'
-        ><Button size='mini' color='teal' disabled={quantity < 1} onClick={() => this.handleAddToCart()}>Add</Button>
-        </Grid.Column>
       </Grid.Row>
     </Grid>
   }
 }
 
-export default connect(null, { addToCart })(ItemCard);
+export default connect(null, { updateCart })(ItemCard);

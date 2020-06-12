@@ -11,13 +11,13 @@ const cartItems = (state= [], action) => {
       newCart.push(orderItem);
       return newCart;
     }
-    case 'UPDATE_QUANTITY': {
+    case 'UPDATE_CART': {
       const cart = state;
       if (!cart) return state;
 
-      const { orderItemId, quantity, uom } = action;
+      const { orderItemId, field, value } = action;
       const newCart = [ ...state ];
-      updateItemQuantity(newCart, orderItemId, quantity, uom);
+      updateCartItem(newCart, orderItemId, field, value);
 
       return newCart;
     }
@@ -32,19 +32,22 @@ const cart = combineReducers({
 
 export default cart;
 
-export const getCart = state => state.cartItems || [];
+export const getCartItems = state => state.cartItems || [];
 
 const createNewCartItem = (orderItemId, item, quantity, uom) => {
   return { id: orderItemId, item, quantity, uom };
 };
 
-const updateItemQuantity = (cart, orderItemId, quantity, uom) => {
-
-  const itemIndex = cart.findIndex(item => item.id === orderItemId);
+const updateCartItem = (cartItems, orderItemId, field, value) => {
+  const itemIndex = cartItems.findIndex(item => item.id === orderItemId);
 
   if (itemIndex === -1) return;
 
-  const item = cart[itemIndex];
-  item.quantity = quantity;
-  item.uom = uom;
+  if (field === 'quantity' && value === 0) {
+    cartItems.splice(itemIndex, 1);
+    return;
+  }
+
+  const item = cartItems[itemIndex];
+  item[field] = value;
 };

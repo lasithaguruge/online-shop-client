@@ -12,4 +12,4 @@ export default rootReducer;
 
 export const getItems = state => fromItems.getItems(state.items);
 
-export const getCart = state => fromCart.getCart(state.cart);
+export const getCartItems = state => fromCart.getCartItems(state.cart);

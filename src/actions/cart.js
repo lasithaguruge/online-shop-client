@@ -6,9 +6,9 @@ export const addToCart = (orderItemId, item, quantity, uom) => dispatch => dispa
   uom
 });
 
-export const updateCart = (orderItemId, quantity, uom) => dispatch => dispatch({
-  type: 'UPDATE_QUANTITY',
+export const updateCart = (orderItemId, field, value) => dispatch => dispatch({
+  type: 'UPDATE_CART',
   orderItemId,
-  quantity,
-  uom
+  field,
+  value
 });
