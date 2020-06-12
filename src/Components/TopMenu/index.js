@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
-import { Icon, Menu, Segment } from 'semantic-ui-react'
+import { Icon, Menu, Segment } from 'semantic-ui-react';
+import Cart from '../Cart';
 
 class TopMenu extends Component {
   state = { activeItem: 'Products' }
@@ -16,26 +17,27 @@ class TopMenu extends Component {
     return (
       <Segment color='teal'>
         <Menu secondary color={'teal'}>
-        <Menu.Item
-          name='Products'
-          active={activeItem === 'Products'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Item
-          name='Prices'
-          active={activeItem === 'Prices'}
-          onClick={this.handleItemClick}
-        />
-        <Menu.Menu position='right'>
           <Menu.Item
-            name='Cart'
-            active={activeItem === 'Cart'}
+            name='Products'
+            active={activeItem === 'Products'}
             onClick={this.handleItemClick}
-          >
-            <Icon name='cart' /> Cart
+          />
+          <Menu.Item
+            name='Prices'
+            active={activeItem === 'Prices'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Menu position='right'>
+            <Cart button={
+              <Menu.Item
+                name='Cart'
+                active={activeItem === 'Cart'}
+              >
+                <Icon name='cart' /> Cart
           </Menu.Item>
-        </Menu.Menu>
-      </Menu>
+            } />
+          </Menu.Menu>
+        </Menu>
       </Segment>
     )
   }
