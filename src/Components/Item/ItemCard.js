@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Item, Input, Grid, Dropdown } from 'semantic-ui-react';
 import { v4 as uuid4 } from 'uuid';
+import { connect } from 'react-redux';
+import { addToCart, updateCart } from '../../actions/cart';
+import { getCart } from '../../redux/reducers';
 
 const options = [
   { key: 1, text: 'Unit', value: 'unit' },
@@ -13,18 +16,26 @@ class ItemCard extends Component {
     uom: 'unit'
   }
 
+  componentWillReceiveProps = nextProps => console.log("CART ", nextProps.cart)
+
   onQuantityChange = value => {
-    this.setState({ quantity: this.state.quantity + value });
+    this.setState({ quantity: this.state.quantity + value }, this.handleAddToCart);
   }
 
+  onUOMChange = value => {
+    this.setState({ uom: value }, this.handleAddToCart);
+  }
+
+
   handleAddToCart = () => {
-    const { item, quantity, addToCart, updateQuantity } = this.props;
+    const { item, addToCart, updateCart } = this.props;
+    const { quantity, uom } = this.state;
 
     if (!this.orderItemId) {
       this.orderItemId = uuid4();
-      addToCart(item, quantity, this.orderItemId);
+      addToCart(this.orderItemId, item, quantity, uom);
     } else {
-      updateQuantity(this.orderItemId, quantity);
+      updateCart(this.orderItemId, quantity, uom);
     }
 
     this.handleResetItemState();
@@ -35,12 +46,12 @@ class ItemCard extends Component {
 
     this.addToCartTimeout = setTimeout(() => {
       this.orderItemId = null;
-      this.setState({ quantity: 0 });
-    }, 3000);
+      this.setState({ quantity: 0, uom: 'unit' });
+    }, 5000);
   }
 
   render() {
-    const { item, onHandleChange } = this.props;
+    const { item } = this.props;
     const { quantity, uom } = this.state;
 
     return <Grid columns={4} divided='vertically'>
@@ -56,10 +67,10 @@ class ItemCard extends Component {
         <Grid.Column style={{ marginTop: 5 }}>
           <Grid columns={4}>
             <Grid.Column width={2}><Button circular icon='plus' size='mini' onClick={(e) => this.onQuantityChange(1)} /></Grid.Column>
-            <Grid.Column width={4}><Input value={quantity} size='mini' style={{ width: 64 }} /></Grid.Column>
+            <Grid.Column width={4}><Input value={quantity} size='mini' style={{ width: 64 }} onChange={(e) => this.onQuantityChange(e.target.value)}/></Grid.Column>
             <Grid.Column width={2}><Button circular icon='minus' size='mini' onClick={(e) => quantity > 0 && this.onQuantityChange(-1)} /></Grid.Column>
             <Grid.Column style={{ margin: 5 }} width={7} >
-              <Dropdown options={options} value={uom} onChange={(e) => onHandleChange('uom', e.target.value)} />
+              <Dropdown options={options} value={uom} onChange={(e, option) => this.onUOMChange(option.value)} />
             </Grid.Column>
           </Grid>
         </Grid.Column>
@@ -75,4 +86,8 @@ class ItemCard extends Component {
   }
 }
 
-export default ItemCard;
+const mapStateToProps = state => {
+  return { cart: getCart(state) };
+}
+
+export default connect(mapStateToProps, { addToCart, updateCart })(ItemCard);

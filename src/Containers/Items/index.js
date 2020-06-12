@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Divider, Header, List } from 'semantic-ui-react';
 import ItemCard from '../../Components/Item/ItemCard';
-import { getItems } from '../../redux/reducers/items';
+import { getItems } from '../../redux/reducers';
 
 class ItemList extends Component {
   state = { 
@@ -11,15 +11,6 @@ class ItemList extends Component {
   
   handleOnClickItemQuantityChange = (action, itemId, value) => {
     console.log("handleOnClickItemQuantityChange ", action, itemId, value)
-
-    // const cartItem = this.state.cartItems.find(cartItem => cartItem.id ==)
-    // const item = this.props.items.find(item => item.id === itemId);
-
-    // if (item) {
-      
-    // } else {
-    //   this.createNewCartItem(item, value);
-    // }
   }
 
   handleOnChange = (key, itemId, value) => {
@@ -29,12 +20,6 @@ class ItemList extends Component {
   handleAddToCart = (itemId) => {
     console.log("handleAddToCart ", itemId)
   }
-
-  createNewCartItem = (itemId, quantity = 0, uom = 'unit') => {
-    const item = this.props.items.find(item => item.id === itemId);
-
-    return { id: 5, item, quantity, uom };
-  };
 
   render() {
     return (
