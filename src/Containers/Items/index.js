@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Divider, Header, List } from 'semantic-ui-react';
-import ItemCard from '../../Components/Item/ItemCard';
+import ItemCard from '../../Components/Cards/ItemCard';
 import { getItems } from '../../redux/reducers';
 
 class ItemList extends Component {

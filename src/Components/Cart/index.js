@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Icon, Modal, List } from 'semantic-ui-react';
 import { getCartItems } from '../../redux/reducers';
-import CartItemCard from '../Item/CartItemCard';
+import CartItemCard from '../Cards/CartItemCard';
 import EmptyCart from '../EmptyMessages/EmptyCart';
 
 class Cart extends Component {
