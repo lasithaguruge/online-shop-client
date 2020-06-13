@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Item, Input, Grid, Dropdown, Icon } from 'semantic-ui-react';
+import { Button, Item, Input, Grid, Dropdown } from 'semantic-ui-react';
 import { v4 as uuid4 } from 'uuid';
 import { connect } from 'react-redux';
 import { addToCart } from '../../actions/cart';
