@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Button, Icon, Modal, List } from 'semantic-ui-react';
 import { getCartItems } from '../../redux/reducers';
 import CartItemCard from '../Cards/CartItemCard';
@@ -20,7 +21,7 @@ class Cart extends Component {
         </Modal.Content>
         <Modal.Actions>
           <Button color='teal'>
-            Checkout <Icon name='chevron right' />
+            Checkout <Icon name='chevron right' onClick={() => this.props.history.push('/orderSummary')}/>
           </Button>
         </Modal.Actions>
       </Modal>
@@ -32,4 +33,4 @@ const mapStateToProps = state => {
   return { cartItems: getCartItems(state) };
 }
 
-export default connect(mapStateToProps, null)(Cart);
+export default withRouter(connect(mapStateToProps, null)(Cart));
