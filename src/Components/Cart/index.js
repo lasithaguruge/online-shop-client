@@ -19,7 +19,7 @@ class Cart extends Component {
           </List> : <EmptyCart />}
         </Modal.Content>
         <Modal.Actions>
-          <Button primary>
+          <Button color='teal'>
             Checkout <Icon name='chevron right' />
           </Button>
         </Modal.Actions>

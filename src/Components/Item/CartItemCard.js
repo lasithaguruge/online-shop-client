@@ -50,7 +50,7 @@ class ItemCard extends Component {
             </Item.Content>
           </Item>
         </Grid.Column>
-        <Grid.Column style={{ marginTop: 5 }}>
+        {/* <Grid.Column style={{ marginTop: 5 }}>
           <Grid columns={4}>
             <Grid.Column width={2}><Button circular icon='plus' size='mini' color='teal' onClick={(e) => this.onQuantityChange(1)} /></Grid.Column>
             <Grid.Column width={3}><Input value={quantity} size='mini' style={{ width: 64 }} onChange={(e) => this.onQuantityChange(e.target.value)}/></Grid.Column>
@@ -59,6 +59,14 @@ class ItemCard extends Component {
               <Dropdown options={options} value={uom} onChange={(e, option) => this.onUOMChange(option.value)} />
             </Grid.Column>
           </Grid>
+        </Grid.Column> */}
+        <Grid.Column width={5} style={{ marginTop: 5 }} floated='right'>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button circular icon='plus' size='mini' color='teal' onClick={(e) => this.onQuantityChange(1)} />
+            <Input value={quantity} size='mini' style={{ width: 85 }} onChange={(e) => this.onQuantityChange(e.target.value)} />
+            <Button circular icon='minus' size='mini' color='teal' onClick={(e) => quantity > 0 && this.onQuantityChange(-1)} />
+            <Dropdown style={{ width: 70 }} options={options} value={uom} onChange={(e, option) => this.onUOMChange(option.value)} />
+          </div>
         </Grid.Column>
       </Grid.Row>
     </Grid>

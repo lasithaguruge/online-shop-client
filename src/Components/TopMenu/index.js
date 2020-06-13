@@ -33,7 +33,7 @@ class TopMenu extends Component {
                 name='Cart'
                 active={activeItem === 'Cart'}
               >
-                <Icon name='cart' /> Cart
+                <Icon color='teal' name='cart' /> Cart
           </Menu.Item>
             } />
           </Menu.Menu>

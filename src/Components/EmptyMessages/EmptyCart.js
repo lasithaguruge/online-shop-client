@@ -2,15 +2,14 @@ import React from 'react'
 import { Button, Grid, Header, Icon, Segment, } from 'semantic-ui-react'
 
 const SegmentExamplePlaceholderGrid = () => (
-  <Segment placeholder>
+  <Segment basic>
     <Grid columns={1} stackable textAlign='center'>
       <Grid.Row verticalAlign='middle'>
         <Grid.Column>
           <Header icon disabled>
             <Icon name='cart' />
-            Look like you haven't made your choice yet 
+            Your cart is empty
           </Header>
-          <Button color='teal'>Add Items</Button>
         </Grid.Column>
       </Grid.Row>
     </Grid>
