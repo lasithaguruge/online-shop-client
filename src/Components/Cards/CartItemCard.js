@@ -20,9 +20,13 @@ class ItemCard extends Component {
     this.setState({ quantity, uom });
   }
 
-  onQuantityChange = value => {
-    this.setState({ quantity: this.state.quantity + value }, () => this.handleUpdateCart('quantity'));
+  onQuantityChange = evt => {
+    if (evt.target.validity.valid) {
+      this.setState({ quantity: evt.target.value })
+    }
   }
+
+  onClickQuantityChange = value => this.setState({ quantity: parseInt(this.state.quantity) + parseInt(value) })
 
   onUOMChange = value => {
     this.setState({ uom: value }, () => this.handleUpdateCart('uom'));
@@ -38,7 +42,7 @@ class ItemCard extends Component {
 
   render() {
     const { orderItem: { item } } = this.props;
-    const { quantity, uom } = this.state;
+    const { uom, quantity } = this.state;
 
     return <Grid columns={2} divided='vertically'>
       <Grid.Row>
@@ -62,9 +66,9 @@ class ItemCard extends Component {
         </Grid.Column> */}
         <Grid.Column width={5} style={{ marginTop: 5 }} floated='right'>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button circular icon='plus' size='mini' color='teal' onClick={(e) => this.onQuantityChange(1)} />
-            <Input value={quantity} size='mini' style={{ width: 85 }} onChange={(e) => this.onQuantityChange(e.target.value)} />
-            <Button circular icon='minus' size='mini' color='teal' onClick={(e) => quantity > 0 && this.onQuantityChange(-1)} />
+            <Button circular icon='plus' size='mini' color='teal' onClick={(e) => this.onClickQuantityChange(1)} />
+            <Input type="text" pattern="[0-9]*" size='mini' style={{ width: 85 }} value={quantity} onChange={(e) => this.onQuantityChange(e)} />
+            <Button circular icon='minus' size='mini' color='teal' onClick={(e) => quantity > 0 && this.onClickQuantityChange(-1)} />
             <Dropdown style={{ width: 70 }} options={options} value={uom} onChange={(e, option) => this.onUOMChange(option.value)} />
           </div>
         </Grid.Column>
