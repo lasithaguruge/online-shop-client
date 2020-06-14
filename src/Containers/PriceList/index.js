@@ -75,10 +75,10 @@ class ItemList extends Component {
   }
 
   render() {
-    const { loading, quantity, name } = this.state;
+    const { loading, quantity } = this.state;
     return (
       <Segment basic>
-      <Dimmer active={loading} inverted>
+      <Dimmer active={loading && (this.props.priceList && this.props.priceList.length === 0)} inverted>
         <Loader size='medium'>Loading</Loader>
       </Dimmer>
 

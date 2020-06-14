@@ -11,9 +11,16 @@ class TopMenu extends Component {
     this.setState({ activeItem: name })
   }
 
+  componentDidMount = () => {
+    let activeItem = window.location.pathname.split('/')[1];
+    activeItem = activeItem.charAt(0).toUpperCase() + activeItem.slice(1);
+
+    this.setState({ activeItem })
+  }
+
   render() {
     const { activeItem } = this.state
-
+    
     return (
       <Segment color='teal'>
         <Menu secondary color={'teal'}>
