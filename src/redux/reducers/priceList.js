@@ -2,9 +2,9 @@ import { combineReducers } from 'redux';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
-    case 'SUCCEED_FETCH_ITEMS': {
+    case 'SUCCEED_FETCH_PRICE_LIST': {
       const newState = { ...state };
-      if (action.items) action.items.forEach(item => { newState[item.id] = item });
+      if (action.prices) action.prices.forEach(item => { newState[item.id] = item });
       return newState;
     }
     default:
@@ -14,9 +14,9 @@ const byId = (state = {}, action) => {
 
 const ids = (state = [], action) => {
   switch (action.type) {
-    case 'SUCCEED_FETCH_ITEMS': {
+    case 'SUCCEED_FETCH_PRICE_LIST': {
       const newState = [ ...state ];
-      if (action.items) action.items.forEach(item => { 
+      if (action.prices) action.prices.forEach(item => { 
         if (!newState.includes(item.id)) newState.push(item.id); 
       });
 
@@ -27,11 +27,11 @@ const ids = (state = [], action) => {
   }
 };
 
-const items = combineReducers({
+const priceList = combineReducers({
   byId,
   ids
 });
 
-export default items;
+export default priceList;
 
-export const getItems = state => state.ids.map(id => state.byId[id]);
+export const getPriceListItems = state => state.ids.map(id => state.byId[id]);

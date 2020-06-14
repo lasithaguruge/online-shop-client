@@ -25,5 +25,10 @@ Api.items = {
     url: () => Api.itemService,
     method: 'GET',
     headers: HEADERS
+  },
+  getPriceList: {
+    url: () => Api.itemService + '/prices',
+    method: 'GET',
+    headers: HEADERS
   }
 };

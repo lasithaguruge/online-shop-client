@@ -11,3 +11,15 @@ export const getAll = () => {
     return { error: 'An error occured while connecting to the server.' };
   });
 }
+
+export const getPriceList = () => {
+  const { url, method, headers } = Api.items.getPriceList;
+  
+  return window.fetch(url(), { method, headers })
+  .then(response => response.json())
+  .then(responseJson => {
+    return responseJson;
+  }).catch(_ => {
+    return { error: 'An error occured while connecting to the server.' };
+  });
+}
