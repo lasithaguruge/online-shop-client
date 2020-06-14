@@ -3,7 +3,7 @@ import { items as dummyItems } from './dummyData';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
-    case 'FETCH_ITEMS': {
+    case 'SUCCEED_FETCH_ITEMS': {
       const newState = { ...state };
       if (action.items) action.items.forEach(item => { newState[item.id] = item });
       return newState;
@@ -15,7 +15,7 @@ const byId = (state = {}, action) => {
 
 const ids = (state = [], action) => {
   switch (action.type) {
-    case 'FETCH_ITEMS': {
+    case 'SUCCEED_FETCH_ITEMS': {
       const newState = [ ...state ];
       if (action.items) action.items.forEach(item => { 
         if (!newState.includes(item.id)) newState.push(item.id); 

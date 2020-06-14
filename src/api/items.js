@@ -1,10 +1,9 @@
 import Api from './const';
 
-export const addOrder = data => {
-  const { url, method, headers } = Api.orders.add;
-  const body = JSON.stringify(data);
+export const getAll = () => {
+  const { url, method, headers } = Api.items.getAll;
   
-  window.fetch(url(), { body, method, headers })
+  window.fetch(url(), { method, headers })
   .then(response => response.json())
   .then(responseJson => {
     console.log('RESPONSE ',responseJson.data);

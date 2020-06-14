@@ -5,6 +5,7 @@ const host = 'localhost:8080';
 Api.server = 'http://' + host + '/api';
 
 Api.orderService = Api.server + '/orders';
+Api.itemService = Api.server + '/items';
 
 const HEADERS = {
   'Accept': 'application/json',
@@ -12,7 +13,17 @@ const HEADERS = {
 };
 
 Api.orders = {
-  url: () => Api.orderService,
-  method: 'POST',
-  headers: HEADERS
+  add: {
+    url: () => Api.orderService,
+    method: 'POST',
+    headers: HEADERS
+  }
+};
+
+Api.items = {
+  getAll: {
+    url: () => Api.itemService,
+    method: 'GET',
+    headers: HEADERS
+  }
 };
