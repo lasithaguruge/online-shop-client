@@ -6,7 +6,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Header as='h3'>Order summary</Header>
+        <Header as='h3'>Price List</Header>
         <Divider />
       </div>
     )
