@@ -1,14 +1,13 @@
 import Api from './const';
 
-export const addOrder = data => {
-  const { url, method, headers } = Api.orders.add;
-  const body = JSON.stringify(data);
+export const getOrderAmount = order => {
+  const { url, method, headers } = Api.orders.getOrderAmount;
+  const body = JSON.stringify(order);
   
-  window.fetch(url(), { body, method, headers })
+  return window.fetch(url(), { body, method, headers })
   .then(response => response.json())
   .then(responseJson => {
-    console.log('RESPONSE ',responseJson.data);
-    return responseJson.data;
+    return responseJson;
   }).catch(_ => {
     return { error: 'An error occured while connecting to the server.' };
   });

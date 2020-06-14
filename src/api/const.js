@@ -13,8 +13,8 @@ const HEADERS = {
 };
 
 Api.orders = {
-  add: {
-    url: () => Api.orderService,
+  getOrderAmount: {
+    url: () => Api.orderService + '/priceEngine',
     method: 'POST',
     headers: HEADERS
   }

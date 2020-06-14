@@ -22,11 +22,11 @@ class ItemCard extends Component {
 
   onQuantityChange = evt => {
     if (evt.target.validity.valid) {
-      this.setState({ quantity: evt.target.value })
+      this.setState({ quantity: evt.target.value }, () => this.handleUpdateCart('quantity'))
     }
   }
 
-  onClickQuantityChange = value => this.setState({ quantity: parseInt(this.state.quantity) + parseInt(value) })
+  onClickQuantityChange = value => this.setState({ quantity: parseInt(this.state.quantity) + parseInt(value) }, () => this.handleUpdateCart('quantity'))
 
   onUOMChange = value => {
     this.setState({ uom: value }, () => this.handleUpdateCart('uom'));
