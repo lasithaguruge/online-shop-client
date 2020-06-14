@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Divider, Dimmer, Grid, Header, Input, List, Loader, Segment } from 'semantic-ui-react';
+import { Divider, Dimmer, Grid, Header, Input, List, Loader, Segment, Item } from 'semantic-ui-react';
 import PriceListCard from '../../Components/Cards/PriceListCard';
 import { fetchPriceList } from '../../actions/items';
 import { getPriceListItems } from '../../redux/reducers';
@@ -49,6 +49,31 @@ class ItemList extends Component {
     return filteredItemsList;
   }
 
+  renderListHeader = () => {
+    return <Grid columns={4} divided='vertically'>
+      <Grid.Row>
+        <Grid.Column>
+          <Item>
+            <Item.Content>
+              <Item.Header><h4>Item</h4></Item.Header>
+            </Item.Content>
+          </Item>
+        </Grid.Column>
+        <Grid.Column></Grid.Column>
+        <Grid.Column width={4} style={{ marginTop: 5 }} floated='right'>
+        <h4>No of units</h4>
+        </Grid.Column>
+        <Grid.Column
+          width={1}
+          style={{ marginTop: 5, marginRight: 10 }}
+          floated='right'
+        >
+          <h4>Price</h4>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  }
+
   render() {
     const { loading, quantity, name } = this.state;
     return (
@@ -66,7 +91,7 @@ class ItemList extends Component {
           </Grid.Row>
         </Grid>
         
-        
+        {this.renderListHeader()}
         <Divider />
         <List verticalAlign='middle'>
           {this.filteredList().map(item => {

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Item, Grid } from 'semantic-ui-react';
+import { format } from 'currency-formatter';
 
 class PriceListCard extends Component {
 
   render() {
     const { item = {} } = this.props;
     const { name, description, price, noOfUnits } = item;
-    console.log("PRICE ITEM ", item)
+
     return <Grid columns={4} divided='vertically'>
       <Grid.Row>
         <Grid.Column>
@@ -23,10 +24,10 @@ class PriceListCard extends Component {
         </Grid.Column>
         <Grid.Column
           width={1}
-          style={{ marginTop: 5, marginRight: 10 }}
+          style={{ marginTop: 5, marginRight: 10, textAlign: 'right' }}
           floated='right'
         >
-          {price}
+          {format(price, '')}
         </Grid.Column>
       </Grid.Row>
     </Grid>
