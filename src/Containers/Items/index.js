@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Divider, Header, List } from 'semantic-ui-react';
+import { Divider, Dimmer, Header, List, Loader, Segment } from 'semantic-ui-react';
 import ItemCard from '../../Components/Cards/ItemCard';
+import { fetchItems } from '../../actions/items';
 import { getItems } from '../../redux/reducers';
 
 class ItemList extends Component {
   state = { 
-    cartItems: [] 
-  }
-  
-  handleOnClickItemQuantityChange = (action, itemId, value) => {
-    console.log("handleOnClickItemQuantityChange ", action, itemId, value)
+    loading: false
   }
 
-  handleOnChange = (key, itemId, value) => {
-    console.log("handleOnChange ", key,  itemId, value)
-  }
-
-  handleAddToCart = (itemId) => {
-    console.log("handleAddToCart ", itemId)
+  componentDidMount = () => {
+    this.setState({ loading: true })
+    this.props.fetchItems().then(() => {
+      this.setState({ loading: false })
+    })
   }
 
   render() {
+    const { loading } = this.state;
     return (
+      <Segment basic>
+      <Dimmer active={loading} inverted>
+        <Loader size='medium'>Loading</Loader>
+      </Dimmer>
+
       <div>
         <Header as='h3'>Products</Header>
         <Divider />
@@ -30,13 +32,11 @@ class ItemList extends Component {
           {this.props.items.map(item => {
             return <ItemCard 
               key={item.id} 
-              item={item}
-              onHandleClickItemQuantityChange={this.handleOnClickItemQuantityChange}
-              onHandleChange={this.handleOnChange}
-              onHandleAddToCart={this.handleAddToCart} />
+              item={item} />
           })}
         </List>
       </div>
+    </Segment>
     )
   }
 }
@@ -45,4 +45,4 @@ const mapStateToProps = state => {
   return { items: getItems(state) };
 }
 
-export default connect(mapStateToProps, {})(ItemList);
+export default connect(mapStateToProps, { fetchItems })(ItemList);

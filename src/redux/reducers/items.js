@@ -35,7 +35,4 @@ const items = combineReducers({
 
 export default items;
 
-export const getItems = state => {
-  return dummyItems;
-  // state.ids.map(id => state.byId[id]);
-}
+export const getItems = state => state.ids.map(id => state.byId[id]);
